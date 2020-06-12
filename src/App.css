@@ -1,0 +1,23 @@
+form{
+  margin: 20px
+}
+label{
+  display: block;
+}
+
+input{
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+input[type="checkbox"]{
+  margin-left:0;
+  margin-right: 20px;
+}
+
+button{
+  display: block;
+  max-width: 200px;
+  padding: 10px 20px;
+  margin-top: 20px;
+}
