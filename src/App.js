@@ -29,7 +29,6 @@ class App extends Component {
     const name = e.target.name
     const type = e.target.type;
 
-
     if (type === "text" || type === "password" || type === "email") {
       const value = e.target.value;
       // const checked = e.target.checked;
@@ -38,7 +37,6 @@ class App extends Component {
       })
     } else if (type === "checkbox") {
       const checked = e.target.checked;
-      console.log(checked);
       this.setState({
         [name]: checked
       })
@@ -48,6 +46,70 @@ class App extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+
+    const validation = this.formValidation()
+
+    if (validation.correct) {
+      this.setState({
+        username: '',
+        email: '',
+        pass: '',
+        accept: false,
+
+        errors: {
+          username: false,
+          email: false,
+          pass: false,
+          accept: false,
+        }
+      })
+    } else {
+      this.setState({
+        errors: {
+          username: !validation.username,
+          email: !validation.email,
+          pass: !validation.password,
+          accept: !validation.accept,
+        }
+      })
+    }
+  }
+
+  formValidation = () => {
+    let username = false;
+    let email = false;
+    let password = false;
+    let accept = false;
+    let correct = false;
+
+    if (this.state.username.length > 10 && this.state.username.indexOf(' ') === -1) {
+      username = true;
+    }
+
+    if (this.state.email.indexOf('@') !== -1) {
+      email = true;
+    }
+
+    if (this.state.pass.length === 8) {
+      password = true;
+    }
+
+    if (this.state.accept) {
+      accept = true
+    }
+
+    if (username && email && password && accept) {
+      correct = true
+    }
+
+    return ({
+      correct,
+      username,
+      email,
+      password,
+      accept
+    })
+
   }
 
   render() {
@@ -65,8 +127,8 @@ class App extends Component {
           </label>
 
           <label htmlFor="password">Twóje password:
-            <input type="password" id="password" name="pass" value={this.state.email} onChange={this.handleChange} />
-            {this.state.errors.pass && <span>{this.messages.password_incofalse}</span>}
+            <input type="password" id="password" name="pass" value={this.state.password} onChange={this.handleChange} />
+            {this.state.errors.pass && <span>{this.messages.password_incorect}</span>}
           </label>
 
           <label htmlFor="accept">
