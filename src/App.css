@@ -21,3 +21,9 @@ button{
   padding: 10px 20px;
   margin-top: 20px;
 }
+
+span{
+  color: red;
+  font-size: 10px;
+  margin-left: 10px;
+}
